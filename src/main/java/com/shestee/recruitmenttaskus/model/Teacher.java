@@ -1,11 +1,9 @@
 package com.shestee.recruitmenttaskus.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -13,16 +11,21 @@ public class Teacher extends Person {
     @NotNull
     private String subject;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "teachers", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("teachers")
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JoinTable(name = "student_teacher",
+            joinColumns = { @JoinColumn(name = "teacher_id") },
+            inverseJoinColumns = { @JoinColumn(name = "student_id") })
     private Set<Student> students;
 
-    public Teacher(String firstName, String lastName, int age, String email, String subject) {
+    public Teacher(String firstName, String lastName, Integer age, String email, String subject) {
         super(firstName, lastName, age, email);
         this.subject = subject;
+        students = new HashSet<>();
     }
 
     public Teacher() {
+        students = new HashSet<>();
     }
 
     public String getSubject() {
@@ -49,10 +52,11 @@ public class Teacher extends Person {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Teacher teacher = (Teacher) o;
-        return Objects.equals(getLastName(), teacher.getLastName()) && Objects.equals(getEmail(), teacher.getEmail());
+    public String toString() {
+        return "Teacher{" +
+                super.toString() +
+                ", subject='" + subject + '\'' +
+                ", students size=" + students.size() +
+                '}';
     }
 }

@@ -1,7 +1,11 @@
 package com.shestee.recruitmenttaskus.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class Person {
@@ -17,14 +21,13 @@ public abstract class Person {
     private String lastName;
 
     @Column(nullable = false)
-    @NotNull
     @Min(value = 19, message = "age has to be at least 19")
-    private int age;
+    private Integer age;
 
-    @Email
+    @Email(message = "provided email is invalid")
     private String email;
 
-    public Person(String firstName, String lastName, int age, String email) {
+    public Person(String firstName, String lastName, Integer age, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -72,5 +75,27 @@ public abstract class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return firstName.equals(person.firstName) && Objects.equals(lastName, person.lastName) && age.equals(person.age) && email.equals(person.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, age, email);
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'';
     }
 }
