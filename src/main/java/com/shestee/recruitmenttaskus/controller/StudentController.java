@@ -54,6 +54,11 @@ public class StudentController {
         return studentService.editStudent(id, student);
     }
 
+    @PutMapping(value = "/students", params = {"studentId", "teacherId"})
+    public Student addTeacherToStudent(@RequestParam long studentId, @RequestParam long teacherId) throws PersonNotFoundException {
+        return studentService.addTeacherById(studentId, teacherId);
+    }
+
     @DeleteMapping(value = "/students", params = "id")
     public void deleteStudentById(@RequestParam long id) {
         studentService.removeStudent(id);

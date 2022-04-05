@@ -14,7 +14,10 @@ public class RecruitmentTaskUsApplication {
 	public static void main(String[] args) {
 		ApplicationContext appContext = SpringApplication.run(RecruitmentTaskUsApplication.class, args);
 
-		/*StudentService studentService = appContext.getBean(StudentService.class);
+
+//		Some initial data for manual tests:
+
+/*		StudentService studentService = appContext.getBean(StudentService.class);
 		TeacherService teacherService = appContext.getBean(TeacherService.class);
 
 		Teacher teacher1 = new Teacher("Micheal", "Smith", 40, "m.smith@company.com", "Mathematics");
@@ -32,8 +35,7 @@ public class RecruitmentTaskUsApplication {
 		studentService.saveStudent(student3);
 
 		Teacher teacher3 = new Teacher("Teacher", "Three", 40, "teacher.three@gmail.com", "Math");
-		teacherService.saveTeacher(teacher3);
-		studentService.addTeacherById(3, 3);*/
+		teacherService.saveTeacher(teacher3);*/
 	}
 
 }

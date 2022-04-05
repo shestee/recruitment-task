@@ -52,4 +52,7 @@ Udostępniono endpointy `/students` oraz `/teachers`.
     `DELETE /students?id=` ciało metody: JSON; parametr: id studenta  
     `DELETE /teachers?id=` ciało metody: JSON; parametr: id nauczyciela  
 
+• przypisania nauczyciela do studenta :  
+    `PUT /students?studentId=&teacherId=` parametry: id studenta, id nauczyciela  
+
 Metody wyszukujące wszystkich studentów / nauczycieli domyślnie wyświetlają 10 wyników na stronie.
